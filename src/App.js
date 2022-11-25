@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import { useEffect } from 'react';
 import './App.css';
+import useAxios from './hooks/useAxios';
+import useDebounce from './hooks/useDebounce';
+import useWindowSize from './hooks/useWindowSize';
 
 function App() {
+  const { width, height } = useWindowSize();
+
+  const debounce = useDebounce("bilal", 5000);
+
+  const { results, loading, error } = useAxios({
+    method: "GET",
+    url: "/products/1",
+  });
+
+  // console.log(results, loading, error)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Window size</h1>
+      <p>Width: {width}</p>
+      <p>Height: {height}</p>
     </div>
   );
 }
